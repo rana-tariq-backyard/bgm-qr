@@ -15,6 +15,11 @@
       font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
     }
 
+    /* ===== UNIVERSAL BOX SIZING ===== */
+    *, *::before, *::after {
+      box-sizing: border-box;
+    }
+
     /* ===== BASE LAYOUT ===== */
     body {
       display: flex;
@@ -24,15 +29,23 @@
       min-height: 100vh;
       margin: 0;
       background: var(--bg);
-      padding: 40px 0;
+      padding: 20px;
       color: var(--text);
+      box-sizing: border-box;
     }
 
     /* ===== HEADER BRANDING ===== */
     .header-logo {
       width: 100%;
       text-align: center;
-      margin-bottom: 30px;
+    }
+
+    .logo-image {
+      width: 100%;
+      max-width: 960px;
+      height: auto;
+      display: block;
+      margin: 0 auto;
     }
 
     .brand-container {
@@ -77,6 +90,10 @@
       width: 100%;
       max-width: 960px;
       border: 1px solid var(--gold);
+      box-sizing: border-box;
+      flex: 1;
+      max-height: calc(100vh - 150px);
+      overflow-y: auto;
     }
 
     /* ===== TYPOGRAPHY ===== */
@@ -155,6 +172,8 @@
 
     .btn-secondary {
       margin-top: 20px;
+      width: 100%;
+      text-align: center;
     }
 
     /* ===== MESSAGES ===== */
@@ -190,26 +209,254 @@
       font-size: 13px;
       color: var(--muted);
     }
+
+    /* ===== MOBILE RESPONSIVE DESIGN ===== */
+    @media (max-width: 768px) {
+      body {
+        padding: 15px;
+      }
+
+      .header-logo {
+        margin-bottom: 25px;
+      }
+
+      .logo-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .brand-container {
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        font-size: 24px;
+      }
+
+      .brand-section {
+        min-width: auto;
+        flex: 0 0 auto;
+      }
+
+      .brand-section .english {
+        font-size: 32px;
+        line-height: 1;
+      }
+
+      .brand-section .arabic {
+        font-size: 16px;
+        margin-top: 2px;
+      }
+
+      .brand-divider {
+        width: 4px;
+        height: 50px;
+        flex-shrink: 0;
+      }
+
+      .form-card {
+        padding: 20px;
+        max-width: 100%;
+        border: 1px solid var(--gold) !important;
+        box-sizing: border-box;
+        flex: 1;
+        max-height: calc(100vh - 120px);
+        overflow-y: auto;
+      }
+
+      h1 {
+        font-size: 24px;
+        text-align: center;
+      }
+
+      h2 {
+        font-size: 20px;
+        text-align: center;
+      }
+
+      .form-input, .form-select {
+        padding: 14px;
+        font-size: 16px; /* Prevents zoom on iOS */
+      }
+
+      .btn {
+        padding: 14px 16px;
+        font-size: 16px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      body {
+        padding: 10px;
+      }
+
+      .header-logo {
+        margin-bottom: 20px;
+      }
+
+      .logo-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .brand-container {
+        gap: 10px;
+        font-size: 18px;
+      }
+
+      .brand-section .english {
+        font-size: 24px;
+        line-height: 1;
+      }
+
+      .brand-section .arabic {
+        font-size: 12px;
+        margin-top: 1px;
+      }
+
+      .brand-divider {
+        width: 3px;
+        height: 35px;
+      }
+
+      .form-card {
+        padding: 16px;
+        border-radius: 10px;
+        border: 1px solid var(--gold) !important;
+        box-sizing: border-box;
+        flex: 1;
+        max-height: calc(100vh - 100px);
+        overflow-y: auto;
+      }
+
+      h1 {
+        font-size: 20px;
+        margin-bottom: 15px;
+      }
+
+      h2 {
+        font-size: 18px;
+        margin-bottom: 10px;
+      }
+
+      .form-container {
+        gap: 12px;
+      }
+
+      .form-label {
+        font-size: 12px;
+      }
+
+      .form-input, .form-select {
+        padding: 12px;
+        font-size: 16px;
+      }
+
+      .message {
+        padding: 15px;
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 320px) {
+      .header-logo {
+        margin-bottom: 15px;
+      }
+
+      .logo-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .brand-container {
+        gap: 8px;
+        font-size: 16px;
+      }
+
+      .brand-section .english {
+        font-size: 20px;
+        line-height: 1;
+      }
+
+      .brand-section .arabic {
+        font-size: 10px;
+        margin-top: 1px;
+      }
+
+      .brand-divider {
+        width: 2px;
+        height: 25px;
+      }
+
+      .form-card {
+        padding: 12px;
+        border: 1px solid var(--gold) !important;
+        box-sizing: border-box;
+        flex: 1;
+        max-height: calc(100vh - 80px);
+        overflow-y: auto;
+      }
+
+      h1 {
+        font-size: 18px;
+      }
+
+      h2 {
+        font-size: 16px;
+      }
+    }
+
+    /* ===== LANDSCAPE MOBILE ===== */
+    @media (max-width: 768px) and (orientation: landscape) {
+      body {
+        padding: 10px;
+      }
+
+      .header-logo {
+        margin-bottom: 10px;
+      }
+
+      .logo-image {
+        width: 100%;
+        max-width: 100%;
+      }
+
+      .brand-container {
+        flex-direction: row;
+        gap: 12px;
+        font-size: 18px;
+      }
+
+      .brand-section .english {
+        font-size: 22px;
+        line-height: 1;
+      }
+
+      .brand-section .arabic {
+        font-size: 11px;
+        margin-top: 1px;
+      }
+
+      .brand-divider {
+        width: 3px;
+        height: 30px;
+      }
+
+      .form-card {
+        padding: 16px;
+        border: 1px solid var(--gold) !important;
+        box-sizing: border-box;
+        flex: 1;
+        max-height: calc(100vh - 90px);
+        overflow-y: auto;
+      }
+    }
   </style>
 </head>
 <body>
   <div class="header-logo">
-    <div class="brand-container">
-      <div class="brand-section">
-        <div class="english">BLACK</div>
-        <div class="arabic">الأسود</div>
-      </div>
-      <div class="brand-divider"></div>
-      <div class="brand-section">
-        <div class="english">GOLD</div>
-        <div class="arabic">الذهب</div>
-      </div>
-      <div class="brand-divider"></div>
-      <div class="brand-section">
-        <div class="english">MUSEUM</div>
-        <div class="arabic">متحف</div>
-      </div>
-    </div>
+    <img src="https://bgm.hackyard.io/bgm-logo.svg" alt="Black Gold Museum Logo" class="logo-image" />
   </div>
 
   <div class="form-card">
@@ -217,8 +464,6 @@
 
       <div id="form-container">
         <form id="leadForm" class="form-container">
-          <h2>Contact / Lead Form</h2>
-
           <div class="form-field">
             <label class="form-label" for="name">Full Name</label>
             <input id="name" name="name" type="text" class="form-input" placeholder="Enter full name" required />
