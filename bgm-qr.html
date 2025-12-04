@@ -1,0 +1,445 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>BGM : QRG</title>
+  <style>
+    /* ===== CSS VARIABLES ===== */
+    :root {
+      --bg: #111214;
+      --card: #1a1b1e;
+      --gold: #d69a00;
+      --text: #ffffff;
+      --muted: #c5c5c5;
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+    }
+
+    /* ===== BASE LAYOUT ===== */
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      background: var(--bg);
+      padding: 40px 0;
+      color: var(--text);
+    }
+
+    /* ===== HEADER BRANDING ===== */
+    .header-logo {
+      width: 100%;
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .brand-container {
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 40px;
+      font-size: 64px;
+      font-weight: 700;
+      color: var(--text);
+      letter-spacing: 2px;
+    }
+
+    .brand-section {
+      text-align: center;
+      min-width: 240px;
+    }
+
+    .brand-section .english {
+      font-size: 72px;
+      line-height: 0.9;
+    }
+
+    .brand-section .arabic {
+      font-size: 36px;
+      color: var(--gold);
+      margin-top: 6px;
+    }
+
+    .brand-divider {
+      width: 8px;
+      height: 120px;
+      background: var(--gold);
+    }
+
+    /* ===== FORM CARD ===== */
+    .form-card {
+      background: var(--card);
+      padding: 32px;
+      border-radius: 14px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      width: 100%;
+      max-width: 960px;
+      border: 1px solid var(--gold);
+    }
+
+    /* ===== TYPOGRAPHY ===== */
+    h1, h2, h3, label {
+      color: var(--gold);
+    }
+
+    h1 {
+      margin: 0 0 20px;
+      font-size: 28px;
+    }
+
+    h2 {
+      color: var(--gold);
+      font-size: 22px;
+      margin: 0 0 12px;
+      font-weight: 700;
+    }
+
+    /* ===== FORM ELEMENTS ===== */
+    .form-container {
+      display: grid;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-label {
+      color: var(--gold);
+      font-size: 13px;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    .form-input, .form-select {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--gold);
+      border-radius: 8px;
+      font-size: 15px;
+      background: #000;
+      color: var(--text);
+      box-sizing: border-box;
+    }
+
+    .form-input:focus, .form-select:focus {
+      outline: 2px solid var(--gold);
+    }
+
+    /* ===== BUTTONS ===== */
+    .btn {
+      padding: 12px 16px;
+      border-radius: 8px;
+      border: 1px solid var(--gold);
+      background: var(--gold);
+      color: #000;
+      font-weight: 700;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    .btn:disabled {
+      opacity: 0.6;
+      cursor: default;
+    }
+
+    .btn-primary {
+      width: 100%;
+      margin-top: 6px;
+    }
+
+    .btn-secondary {
+      margin-top: 20px;
+    }
+
+    /* ===== MESSAGES ===== */
+    .message {
+      padding: 20px;
+      border-radius: 10px;
+      margin-top: 20px;
+      background: #0f2c17;
+      color: #9affc9;
+      border: 1px solid #18c77a;
+    }
+
+    .message.error {
+      background: #3a0000;
+      color: #ffb3b3;
+      border: 1px solid #ff4444;
+    }
+
+    /* ===== UTILITY CLASSES ===== */
+    .text-center {
+      text-align: center;
+    }
+
+    .mt-20 {
+      margin-top: 20px;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .muted {
+      font-size: 13px;
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="header-logo">
+    <div class="brand-container">
+      <div class="brand-section">
+        <div class="english">BLACK</div>
+        <div class="arabic">الأسود</div>
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand-section">
+        <div class="english">GOLD</div>
+        <div class="arabic">الذهب</div>
+      </div>
+      <div class="brand-divider"></div>
+      <div class="brand-section">
+        <div class="english">MUSEUM</div>
+        <div class="arabic">متحف</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-card">
+      <h1>Fill Your Information</h1>
+
+      <div id="form-container">
+        <form id="leadForm" class="form-container">
+          <h2>Contact / Lead Form</h2>
+
+          <div class="form-field">
+            <label class="form-label" for="name">Full Name</label>
+            <input id="name" name="name" type="text" class="form-input" placeholder="Enter full name" required />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="email">Email</label>
+            <input id="email" name="email" type="email" class="form-input" placeholder="your@company.com" required />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="mobile">Mobile Number</label>
+            <input id="mobile" name="mobile" type="tel" class="form-input" placeholder="e.g. 0551234567" pattern="[0-9]*" inputmode="numeric" maxlength="15" required />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="id_type">ID Type</label>
+            <select id="id_type" name="id_type" class="form-select" required>
+              <option value="">-- Select ID Type --</option>
+              <option value="passport">Passport</option>
+              <option value="national_id">National ID</option>
+              <option value="iqama">Iqama</option>
+            </select>
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="id_number">ID Number</label>
+            <input id="id_number" name="id_number" type="text" class="form-input" required />
+          </div>
+
+          <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+
+      <div id="message-container" class="hidden"></div>
+    </div>
+  </div>
+
+  <script>
+    // ===== CONFIGURATION =====
+    const CONFIG = {
+      API_ENDPOINT: 'https://bgm.hackyard.io/backend/api/qr/generate',
+      FORM_ID: 'leadForm',
+      SUBMIT_BTN_ID: 'submitBtn'
+    };
+
+    // ===== DOM ELEMENTS =====
+    const DOM = {
+      form: document.getElementById(CONFIG.FORM_ID),
+      submitBtn: document.getElementById(CONFIG.SUBMIT_BTN_ID),
+      formContainer: document.getElementById('form-container'),
+      messageContainer: document.getElementById('message-container')
+    };
+
+    // ===== VALIDATION UTILITIES =====
+    const validators = {
+      isValidEmail: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
+      isValidMobile: (mobile) => /^[0-9]{8,15}$/.test(mobile),
+      isEmpty: (value) => !value || !value.trim()
+    };
+
+    // ===== FORM DATA UTILITIES =====
+    const formUtils = {
+      getFormData: () => {
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const mobile = document.getElementById('mobile').value.trim();
+        const id_type = document.getElementById('id_type').value.trim();
+        const id_number = document.getElementById('id_number').value.trim();
+
+        return { name, email, mobile, id_type, id_number };
+      },
+
+      validateFormData: (data) => {
+        if (validators.isEmpty(data.name)) return 'Please enter your full name.';
+        if (validators.isEmpty(data.email)) return 'Please enter your email.';
+        if (!validators.isValidEmail(data.email)) return 'Please enter a valid email address.';
+        if (validators.isEmpty(data.mobile)) return 'Please enter your mobile number.';
+        if (!validators.isValidMobile(data.mobile)) return 'Please enter a valid mobile number (8-15 digits).';
+        if (validators.isEmpty(data.id_type)) return 'Please select an ID type.';
+        if (validators.isEmpty(data.id_number)) return 'Please enter your ID number.';
+        return null;
+      },
+
+      resetForm: () => {
+        DOM.form.reset();
+      }
+    };
+
+    // ===== UI UTILITIES =====
+    const uiUtils = {
+      setLoadingState: (isLoading) => {
+        DOM.submitBtn.disabled = isLoading;
+        DOM.submitBtn.textContent = isLoading ? 'Submitting…' : 'Submit';
+      },
+
+      showSuccessMessage: () => {
+        DOM.formContainer.classList.add('hidden');
+        DOM.messageContainer.classList.remove('hidden');
+        DOM.messageContainer.innerHTML = `
+          <div class="message">
+            Thank you! Your QR has been generated successfully.
+          </div>
+          <button id="newSubmitBtn" class="btn btn-secondary">Submit Another</button>
+        `;
+
+        document.getElementById('newSubmitBtn').addEventListener('click', uiUtils.resetToForm);
+      },
+
+      showErrorMessage: (message) => {
+        DOM.messageContainer.classList.remove('hidden');
+        DOM.messageContainer.innerHTML = `
+          <div class="message error">
+            ${message}
+          </div>
+        `;
+      },
+
+      resetToForm: () => {
+        DOM.formContainer.classList.remove('hidden');
+        DOM.messageContainer.classList.add('hidden');
+        DOM.messageContainer.innerHTML = '';
+        formUtils.resetForm();
+        uiUtils.setLoadingState(false);
+      }
+    };
+
+    // ===== API UTILITIES =====
+    const apiUtils = {
+      submitForm: async (formData) => {
+        const response = await fetch(CONFIG.API_ENDPOINT, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+
+        if (!response.ok) {
+          throw new Error(data.message || 'Something went wrong. Please try again.');
+        }
+
+        return data;
+      }
+    };
+
+    // ===== EVENT HANDLERS =====
+    const eventHandlers = {
+      handleFormSubmit: async (event) => {
+        event.preventDefault();
+
+        const formData = formUtils.getFormData();
+        const validationError = formUtils.validateFormData(formData);
+
+        if (validationError) {
+          uiUtils.showErrorMessage(validationError);
+          return;
+        }
+
+        uiUtils.setLoadingState(true);
+
+        try {
+          await apiUtils.submitForm(formData);
+          uiUtils.showSuccessMessage();
+        } catch (error) {
+          console.error('Form submission error:', error);
+          uiUtils.showErrorMessage(error.message || 'Network or server error. Please try again.');
+          uiUtils.setLoadingState(false);
+        }
+      }
+    };
+
+    // ===== INITIALIZATION =====
+    const init = () => {
+      DOM.form.addEventListener('submit', eventHandlers.handleFormSubmit);
+
+      // Add mobile number input validation
+      const mobileInput = document.getElementById('mobile');
+      mobileInput.addEventListener('input', (e) => {
+        // Remove any non-digit characters
+        e.target.value = e.target.value.replace(/[^0-9]/g, '');
+
+        // Limit to 15 characters
+        if (e.target.value.length > 15) {
+          e.target.value = e.target.value.slice(0, 15);
+        }
+      });
+
+      // Prevent non-numeric input on keypress
+      mobileInput.addEventListener('keypress', (e) => {
+        // Allow backspace, delete, arrow keys, and tab
+        if ([8, 9, 37, 38, 39, 40, 46].includes(e.keyCode)) {
+          return;
+        }
+
+        // Prevent non-numeric characters
+        if (!/[0-9]/.test(e.key)) {
+          e.preventDefault();
+        }
+      });
+
+      // Clear any error messages when user starts typing
+      const inputs = DOM.form.querySelectorAll('input, select');
+      inputs.forEach(input => {
+        input.addEventListener('input', () => {
+          if (!DOM.messageContainer.classList.contains('hidden')) {
+            const errorMessage = DOM.messageContainer.querySelector('.message.error');
+            if (errorMessage) {
+              DOM.messageContainer.classList.add('hidden');
+              DOM.messageContainer.innerHTML = '';
+            }
+          }
+        });
+      });
+    };
+
+    // Start the application
+    init();
+  </script>
+</body>
+</html>
