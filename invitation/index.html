@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>BGM : QRG</title>
+  <title>BGM : Invitation</title>
   <style>
     /* ===== CSS VARIABLES ===== */
     :root {
@@ -32,12 +32,14 @@
       padding: 20px;
       color: var(--text);
       box-sizing: border-box;
+      gap: 20px;
     }
 
     /* ===== HEADER BRANDING ===== */
     .header-logo {
       width: 100%;
       text-align: center;
+      flex-shrink: 0;
     }
 
     .logo-image {
@@ -92,8 +94,6 @@
       border: 1px solid var(--gold);
       box-sizing: border-box;
       flex: 1;
-      max-height: calc(100vh - 150px);
-      overflow-y: auto;
     }
 
     /* ===== TYPOGRAPHY ===== */
@@ -142,6 +142,35 @@
       background: #000;
       color: var(--text);
       box-sizing: border-box;
+    }
+
+    /* ===== DATE INPUT CALENDAR ICON ===== */
+    input[type="date"] {
+      position: relative;
+      color-scheme: dark;
+    }
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23d69a00'%3e%3cpath fill-rule='evenodd' d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z' clip-rule='evenodd'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 20px 20px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      opacity: 1;
+    }
+
+    /* Firefox date input */
+    input[type="date"]::-moz-calendar-picker-indicator {
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%23d69a00'%3e%3cpath fill-rule='evenodd' d='M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z' clip-rule='evenodd'/%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: center;
+      background-size: 20px 20px;
+      width: 20px;
+      height: 20px;
+      cursor: pointer;
+      opacity: 1;
     }
 
     .form-input:focus, .form-select:focus {
@@ -210,14 +239,52 @@
       color: var(--muted);
     }
 
+    /* ===== QR IMAGE STYLES ===== */
+    .qr-container {
+      text-align: center;
+      margin: 20px 0;
+    }
+
+    .qr-image {
+      max-width: 300px;
+      width: 100%;
+      height: auto;
+      border: 2px solid var(--gold);
+      border-radius: 8px;
+      background: white;
+      padding: 10px;
+    }
+
+    .qr-loading {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px;
+      color: var(--muted);
+    }
+
+    .loading-spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid var(--muted);
+      border-top: 4px solid var(--gold);
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-bottom: 10px;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
     /* ===== MOBILE RESPONSIVE DESIGN ===== */
     @media (max-width: 768px) {
       body {
         padding: 15px;
-      }
-
-      .header-logo {
-        margin-bottom: 25px;
+        min-height: 100vh;
+        gap: 15px;
       }
 
       .logo-image {
@@ -261,8 +328,6 @@
         border: 1px solid var(--gold) !important;
         box-sizing: border-box;
         flex: 1;
-        max-height: calc(100vh - 120px);
-        overflow-y: auto;
       }
 
       h1 {
@@ -289,10 +354,8 @@
     @media (max-width: 480px) {
       body {
         padding: 10px;
-      }
-
-      .header-logo {
-        margin-bottom: 20px;
+        min-height: 100vh;
+        gap: 12px;
       }
 
       .logo-image {
@@ -326,8 +389,6 @@
         border: 1px solid var(--gold) !important;
         box-sizing: border-box;
         flex: 1;
-        max-height: calc(100vh - 100px);
-        overflow-y: auto;
       }
 
       h1 {
@@ -360,8 +421,9 @@
     }
 
     @media (max-width: 320px) {
-      .header-logo {
-        margin-bottom: 15px;
+      body {
+        min-height: 100vh;
+        gap: 10px;
       }
 
       .logo-image {
@@ -394,8 +456,6 @@
         border: 1px solid var(--gold) !important;
         box-sizing: border-box;
         flex: 1;
-        max-height: calc(100vh - 80px);
-        overflow-y: auto;
       }
 
       h1 {
@@ -411,10 +471,8 @@
     @media (max-width: 768px) and (orientation: landscape) {
       body {
         padding: 10px;
-      }
-
-      .header-logo {
-        margin-bottom: 10px;
+        min-height: 100vh;
+        gap: 8px;
       }
 
       .logo-image {
@@ -448,25 +506,22 @@
         border: 1px solid var(--gold) !important;
         box-sizing: border-box;
         flex: 1;
-        max-height: calc(100vh - 90px);
-        overflow-y: auto;
       }
     }
   </style>
 </head>
 <body>
   <div class="header-logo">
-    <img src="https://bgm.hackyard.io/bgm-logo.svg" alt="Black Gold Museum Logo" class="logo-image" />
+    <img src="bgm-logo.svg" alt="Black Gold Museum Logo" class="logo-image" />
   </div>
 
   <div class="form-card">
-      <h1>Fill Your Information</h1>
-
       <div id="form-container">
+        <h1>Fill Your Information</h1>
         <form id="leadForm" class="form-container">
           <div class="form-field">
             <label class="form-label" for="name">Full Name</label>
-            <input id="name" name="name" type="text" class="form-input" placeholder="Enter full name" required />
+            <input id="name" name="name" type="text" class="form-input" placeholder="Enter full name" maxlength="100" required />
           </div>
 
           <div class="form-field">
@@ -491,7 +546,12 @@
 
           <div class="form-field">
             <label class="form-label" for="id_number">ID Number</label>
-            <input id="id_number" name="id_number" type="text" class="form-input" required />
+            <input id="id_number" name="id_number" type="text" class="form-input" maxlength="20" required />
+          </div>
+
+          <div class="form-field">
+            <label class="form-label" for="visit_date">Visit Date</label>
+            <input id="visit_date" name="visit_date" type="date" class="form-input" required />
           </div>
 
           <button id="submitBtn" type="submit" class="btn btn-primary">Submit</button>
@@ -522,6 +582,8 @@
     const validators = {
       isValidEmail: (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email),
       isValidMobile: (mobile) => /^[0-9]{8,15}$/.test(mobile),
+      isValidName: (name) => /^[a-zA-Z\s]+$/.test(name),
+      isValidIdNumber: (idNumber) => /^[a-zA-Z0-9]+$/.test(idNumber),
       isEmpty: (value) => !value || !value.trim()
     };
 
@@ -533,18 +595,22 @@
         const mobile = document.getElementById('mobile').value.trim();
         const id_type = document.getElementById('id_type').value.trim();
         const id_number = document.getElementById('id_number').value.trim();
+        const date = document.getElementById('visit_date').value.trim();
 
-        return { name, email, mobile, id_type, id_number };
+        return { name, email, mobile, id_type, id_number, date };
       },
 
       validateFormData: (data) => {
         if (validators.isEmpty(data.name)) return 'Please enter your full name.';
+        if (!validators.isValidName(data.name)) return 'Full name should contain only letters and spaces.';
         if (validators.isEmpty(data.email)) return 'Please enter your email.';
         if (!validators.isValidEmail(data.email)) return 'Please enter a valid email address.';
         if (validators.isEmpty(data.mobile)) return 'Please enter your mobile number.';
         if (!validators.isValidMobile(data.mobile)) return 'Please enter a valid mobile number (8-15 digits).';
         if (validators.isEmpty(data.id_type)) return 'Please select an ID type.';
         if (validators.isEmpty(data.id_number)) return 'Please enter your ID number.';
+        if (!validators.isValidIdNumber(data.id_number)) return 'ID number should contain only letters and numbers.';
+        if (validators.isEmpty(data.date)) return 'Please select a visit date.';
         return null;
       },
 
@@ -560,15 +626,33 @@
         DOM.submitBtn.textContent = isLoading ? 'Submitting…' : 'Submit';
       },
 
-      showSuccessMessage: () => {
+      showSuccessMessage: (qrImageUrl) => {
         DOM.formContainer.classList.add('hidden');
         DOM.messageContainer.classList.remove('hidden');
         DOM.messageContainer.innerHTML = `
           <div class="message">
             Thank you! Your QR has been generated successfully.
           </div>
-          <button id="newSubmitBtn" class="btn btn-secondary">Submit Another</button>
+          <div class="qr-container">
+            <div class="qr-loading">
+              <div class="loading-spinner"></div>
+              <span>Loading QR Code...</span>
+            </div>
+          </div>
+          <button id="newSubmitBtn" class="btn btn-secondary">Generate Another QR</button>
         `;
+
+        // Load the QR image
+        const img = new Image();
+        img.onload = () => {
+          const qrContainer = document.querySelector('.qr-container');
+          qrContainer.innerHTML = `<img src="${qrImageUrl}" alt="Your QR Code" class="qr-image" />`;
+        };
+        img.onerror = () => {
+          const qrContainer = document.querySelector('.qr-container');
+          qrContainer.innerHTML = `<div style="padding: 20px; color: var(--muted);">Failed to load QR code image.</div>`;
+        };
+        img.src = qrImageUrl;
 
         document.getElementById('newSubmitBtn').addEventListener('click', uiUtils.resetToForm);
       },
@@ -629,8 +713,8 @@
         uiUtils.setLoadingState(true);
 
         try {
-          await apiUtils.submitForm(formData);
-          uiUtils.showSuccessMessage();
+          const response = await apiUtils.submitForm(formData);
+          uiUtils.showSuccessMessage(response.qr_image_url || response.qrImageUrl || response.url);
         } catch (error) {
           console.error('Form submission error:', error);
           uiUtils.showErrorMessage(error.message || 'Network or server error. Please try again.');
@@ -642,6 +726,37 @@
     // ===== INITIALIZATION =====
     const init = () => {
       DOM.form.addEventListener('submit', eventHandlers.handleFormSubmit);
+
+      // Set minimum date to today for visit date input
+      const visitDateInput = document.getElementById('visit_date');
+      const today = new Date().toISOString().split('T')[0];
+      visitDateInput.min = today;
+
+      // Add full name input validation (only letters and spaces)
+      const nameInput = document.getElementById('name');
+      nameInput.addEventListener('input', (e) => {
+        // Remove any non-letter, non-space characters
+        e.target.value = e.target.value.replace(/[^a-zA-Z\s]/g, '');
+      });
+      nameInput.addEventListener('keypress', (e) => {
+        // Prevent non-letter, non-space characters from being typed
+        if (!/[a-zA-Z\s]/.test(e.key) && ![8, 9, 37, 38, 39, 40, 46].includes(e.keyCode)) {
+          e.preventDefault();
+        }
+      });
+
+      // Add ID number input validation (only alphanumeric)
+      const idNumberInput = document.getElementById('id_number');
+      idNumberInput.addEventListener('input', (e) => {
+        // Remove any non-alphanumeric characters
+        e.target.value = e.target.value.replace(/[^a-zA-Z0-9]/g, '');
+      });
+      idNumberInput.addEventListener('keypress', (e) => {
+        // Prevent non-alphanumeric characters from being typed
+        if (!/[a-zA-Z0-9]/.test(e.key) && ![8, 9, 37, 38, 39, 40, 46].includes(e.keyCode)) {
+          e.preventDefault();
+        }
+      });
 
       // Add mobile number input validation
       const mobileInput = document.getElementById('mobile');
