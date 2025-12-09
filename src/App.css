@@ -1,3 +1,20 @@
+
+/* Global styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body {
+  height: 100%;
+  overflow-x: hidden;
+}
+
+#root {
+  height: 100%;
+}
+
 /* Agrandir Font */
 @font-face {
   font-family: 'Agrandir';
@@ -16,11 +33,12 @@
 }
 
 .app-container {
-  min-height: 100vh;
+  height: 100vh;
   background-color: #ffffff;
   display: flex;
   flex-direction: column;
   font-family: 'Agrandir', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  overflow: hidden;
 }
 
 .app-header {
@@ -47,6 +65,9 @@
   width: 100%;
   margin: 0 auto;
   padding: 40px 20px;
+  flex: 1;
+  overflow-y: auto;
+  height: 0;
 }
 
 .header {
@@ -254,13 +275,11 @@ input[type="time"]::-moz-calendar-picker-indicator {
 
 .phone-input {
   flex: 1;
-  border: none;
+  border: none !important;
 }
 
 .phone-input-wrapper:focus-within {
   border-color: #000000;
-  outline: 1px solid #000000;
-  outline-offset: -1px;
 }
 
 .phone-input-wrapper.error {

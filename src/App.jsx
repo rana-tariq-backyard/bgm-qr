@@ -28,7 +28,7 @@ function App() {
     phone: '',
     idType: '',
     idNumber: '',
-    visitDate: '',
+    visitDate: new Date().toISOString().split('T')[0],
     consent: false,
   })
 
@@ -60,7 +60,7 @@ function App() {
       phone: '',
       idType: '',
       idNumber: '',
-      visitDate: '',
+      visitDate: new Date().toISOString().split('T')[0],
       consent: false,
     })
     setErrors({})
@@ -88,13 +88,22 @@ function App() {
 
   const validateForm = () => {
     const newErrors = {}
+    const nameRegex = /^[a-zA-Z\s]+$/
 
     if (!formData.firstName.trim()) {
       newErrors.firstName = 'First name is required'
+    } else if (formData.firstName.trim().length < 2 || formData.firstName.trim().length > 50) {
+      newErrors.firstName = 'First name must be between 2 and 50 characters'
+    } else if (!nameRegex.test(formData.firstName.trim())) {
+      newErrors.firstName = 'First name can only contain letters and spaces'
     }
 
     if (!formData.lastName.trim()) {
       newErrors.lastName = 'Last name is required'
+    } else if (formData.lastName.trim().length < 2 || formData.lastName.trim().length > 50) {
+      newErrors.lastName = 'Last name must be between 2 and 50 characters'
+    } else if (!nameRegex.test(formData.lastName.trim())) {
+      newErrors.lastName = 'Last name can only contain letters and spaces'
     }
 
     if (!formData.email.trim()) {
@@ -107,6 +116,8 @@ function App() {
       newErrors.phone = 'Phone number is required'
     } else if (!/^\d+$/.test(formData.phone)) {
       newErrors.phone = 'Phone number must contain only digits'
+    } else if (formData.phone.length < 7 || formData.phone.length > 15) {
+      newErrors.phone = 'Phone number must be between 7 and 15 digits'
     }
 
     if (!formData.idType) {
@@ -115,6 +126,35 @@ function App() {
 
     if (!formData.idNumber.trim()) {
       newErrors.idNumber = 'ID number is required'
+    } else {
+      const idNumber = formData.idNumber.trim()
+      let isValid = false
+      let errorMessage = ''
+
+      switch (formData.idType) {
+        case 'National ID':
+          // Saudi National ID: 10 digits starting with 1 or 2
+          isValid = /^[12]\d{9}$/.test(idNumber)
+          errorMessage = 'National ID must be 10 digits starting with 1 or 2'
+          break
+        case 'Iqama':
+          // Iqama: 10 digits starting with 1 or 2
+          isValid = /^[12]\d{9}$/.test(idNumber)
+          errorMessage = 'Iqama number must be 10 digits starting with 1 or 2'
+          break
+        case 'Passport':
+          // Passport: 6-12 alphanumeric characters
+          isValid = /^[A-Za-z0-9]{6,12}$/.test(idNumber)
+          errorMessage = 'Passport number must be 6-12 alphanumeric characters'
+          break
+        default:
+          isValid = false
+          errorMessage = 'Please select an ID type first'
+      }
+
+      if (!isValid) {
+        newErrors.idNumber = errorMessage
+      }
     }
 
     if (!formData.visitDate) {
@@ -184,9 +224,14 @@ function App() {
         throw new Error('QR code URL not found in response')
       }
 
-      setQrImageUrl(qrUrl)
+      // Show QR panel first, then set the image URL
       setShowQRCode(true)
       setTimer(15) // Reset timer to 15 seconds
+
+      // Set QR image URL after a brief delay to ensure panel is shown
+      setTimeout(() => {
+        setQrImageUrl(qrUrl)
+      }, 100)
     } catch (error) {
       console.error('Error submitting form:', error)
       alert(error.message || 'An error occurred. Please try again.')
@@ -231,7 +276,7 @@ function App() {
   return (
     <div className="app-container">
       <header className="app-header">
-        <img src="/images/Frame.png" alt="Header" className="header-image" />
+        <img src="images/Frame.png" alt="Header" className="header-image" />
       </header>
       <div className="form-wrapper">
         <div className="header">
@@ -251,6 +296,16 @@ function App() {
                 placeholder="First Name"
                 value={formData.firstName}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  // Allow backspace, delete, tab, escape, enter, arrows, space
+                  if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) {
+                    return
+                  }
+                  if (!/[a-zA-Z]/.test(e.key)) {
+                    e.preventDefault()
+                  }
+                }}
+                maxLength="50"
                 className={errors.firstName ? 'error' : ''}
               />
               {errors.firstName && <span className="error-message">{errors.firstName}</span>}
@@ -263,6 +318,16 @@ function App() {
                 placeholder="Last Name"
                 value={formData.lastName}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  // Allow backspace, delete, tab, escape, enter, arrows, space
+                  if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', ' '].includes(e.key)) {
+                    return
+                  }
+                  if (!/[a-zA-Z]/.test(e.key)) {
+                    e.preventDefault()
+                  }
+                }}
+                maxLength="50"
                 className={errors.lastName ? 'error' : ''}
               />
               {errors.lastName && <span className="error-message">{errors.lastName}</span>}
@@ -316,6 +381,16 @@ function App() {
                   value={formData.phone}
                   onChange={handleChange}
                   className="phone-input"
+                  onKeyDown={(e) => {
+                    // Allow backspace, delete, tab, escape, enter, arrows
+                    if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                      return
+                    }
+                    if (!/[0-9]/.test(e.key)) {
+                      e.preventDefault()
+                    }
+                  }}
+                  maxLength="15"
                 />
               </div>
               {errors.phone && <span className="error-message">{errors.phone}</span>}
@@ -350,6 +425,50 @@ function App() {
                 placeholder="ID Number"
                 value={formData.idNumber}
                 onChange={handleChange}
+                onKeyDown={(e) => {
+                  // Allow backspace, delete, tab, escape, enter
+                  if (['Backspace', 'Delete', 'Tab', 'Escape', 'Enter', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].includes(e.key)) {
+                    return
+                  }
+
+                  const idType = formData.idType
+                  let allowedPattern = /./
+
+                  switch (idType) {
+                    case 'National ID':
+                    case 'Iqama':
+                      allowedPattern = /[0-9]/
+                      break
+                    case 'Passport':
+                      allowedPattern = /[A-Za-z0-9]/
+                      break
+                    default:
+                      allowedPattern = /[A-Za-z0-9]/
+                  }
+
+                  if (!allowedPattern.test(e.key)) {
+                    e.preventDefault()
+                  }
+                }}
+                onInput={(e) => {
+                  const idType = formData.idType
+                  let maxLength = 12
+
+                  switch (idType) {
+                    case 'National ID':
+                    case 'Iqama':
+                      maxLength = 10
+                      break
+                    case 'Passport':
+                      maxLength = 12
+                      break
+                  }
+
+                  if (e.target.value.length > maxLength) {
+                    e.target.value = e.target.value.slice(0, maxLength)
+                    setFormData(prev => ({ ...prev, idNumber: e.target.value }))
+                  }
+                }}
                 className={errors.idNumber ? 'error' : ''}
               />
               {errors.idNumber && <span className="error-message">{errors.idNumber}</span>}
