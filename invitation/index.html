@@ -126,14 +126,27 @@
 
                 <div class="form-row">
                     <div class="form-group">
-                        <div class="select-wrapper">
-                            <select id="idType" name="idType">
+                        <div class="id-type-selector">
+                            <button
+                                type="button"
+                                class="id-type-button"
+                                id="idTypeButton"
+                            >
+                                <span id="selectedIdType">Choose your ID type</span>
+                                <span class="arrow">▼</span>
+                            </button>
+                            <div class="id-type-dropdown" id="idTypeDropdown">
+                                <div class="id-type-option" data-value="">Choose your ID type</div>
+                                <div class="id-type-option" data-value="National ID">National ID</div>
+                                <div class="id-type-option" data-value="Iqama">Iqama</div>
+                                <div class="id-type-option" data-value="Passport">Passport</div>
+                            </div>
+                            <select id="idType" name="idType" class="hidden-select">
                                 <option value="">Choose your ID type</option>
                                 <option value="National ID">National ID</option>
                                 <option value="Iqama">Iqama</option>
                                 <option value="Passport">Passport</option>
                             </select>
-                            <span class="select-arrow">▼</span>
                         </div>
                         <span class="error-message hidden" id="idTypeError"></span>
                     </div>
