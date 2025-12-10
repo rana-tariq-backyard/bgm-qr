@@ -48,6 +48,11 @@ const countryButton = document.getElementById('countryButton');
 const countryDropdown = document.getElementById('countryDropdown');
 const selectedCountryCode = document.getElementById('selectedCountryCode');
 const phoneInputWrapper = document.getElementById('phoneInputWrapper');
+const idTypeButton = document.getElementById('idTypeButton');
+const idTypeDropdown = document.getElementById('idTypeDropdown');
+const selectedIdType = document.getElementById('selectedIdType');
+const idTypeSelect = document.getElementById('idType');
+const idTypeSelector = idTypeButton ? idTypeButton.closest('.id-type-selector') : null;
 
 // Utility functions
 function showError(fieldName, message) {
@@ -67,6 +72,11 @@ function showError(fieldName, message) {
     if (fieldName === 'phone') {
         phoneInputWrapper.classList.add('error');
     }
+
+    // Special handling for ID type selector
+    if (fieldName === 'idType' && idTypeSelector) {
+        idTypeSelector.classList.add('error');
+    }
 }
 
 function clearError(fieldName) {
@@ -84,6 +94,11 @@ function clearError(fieldName) {
     // Special handling for phone input wrapper
     if (fieldName === 'phone') {
         phoneInputWrapper.classList.remove('error');
+    }
+
+    // Special handling for ID type selector
+    if (fieldName === 'idType' && idTypeSelector) {
+        idTypeSelector.classList.remove('error');
     }
 }
 
@@ -220,6 +235,11 @@ function resetForm() {
     // Reset country selector
     selectedCountryCode.textContent = '+966';
 
+    // Reset ID type selector
+    if (selectedIdType) {
+        selectedIdType.textContent = 'Choose your ID type';
+    }
+
     clearAllErrors();
 }
 
@@ -306,7 +326,7 @@ function setupEventListeners() {
     document.getElementById('visitDate').min = getMinDate();
 
     // Form input event listeners
-    ['firstName', 'lastName', 'email', 'phone', 'idType', 'idNumber', 'visitDate'].forEach(fieldName => {
+    ['firstName', 'lastName', 'email', 'phone', 'idNumber', 'visitDate'].forEach(fieldName => {
         const element = document.getElementById(fieldName);
         if (element) {
             element.addEventListener('input', (e) => {
@@ -320,6 +340,14 @@ function setupEventListeners() {
             });
         }
     });
+
+    // Handle idType select change (for form submission)
+    if (idTypeSelect) {
+        idTypeSelect.addEventListener('change', (e) => {
+            formData.idType = e.target.value;
+            clearError('idType');
+        });
+    }
 
     // Consent checkbox
     document.getElementById('consent').addEventListener('change', (e) => {
@@ -419,6 +447,34 @@ function setupEventListeners() {
             countryDropdown.classList.remove('show');
         }
     });
+
+    // ID Type picker functionality
+    if (idTypeButton && idTypeDropdown) {
+        idTypeButton.addEventListener('click', (e) => {
+            e.preventDefault();
+            idTypeDropdown.classList.toggle('show');
+        });
+
+        // Close ID type picker when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.id-type-selector')) {
+                idTypeDropdown.classList.remove('show');
+            }
+        });
+
+        // ID type selection
+        idTypeDropdown.addEventListener('click', (e) => {
+            const option = e.target.closest('.id-type-option');
+            if (option) {
+                const value = option.getAttribute('data-value');
+                formData.idType = value;
+                selectedIdType.textContent = value || 'Choose your ID type';
+                idTypeSelect.value = value;
+                idTypeDropdown.classList.remove('show');
+                clearError('idType');
+            }
+        });
+    }
 
     // Form submission
     form.addEventListener('submit', async (e) => {
